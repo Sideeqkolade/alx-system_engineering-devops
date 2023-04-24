@@ -8,9 +8,9 @@
 # Your SSH client configuration must be configured to refuse to 
 # authenticate using a password
 
-file { 'config':
+file { '/etc/ssh/ssh_config':
   ensure  => present,
-  path    => 'etc/ssh/ssh_config',
   owner   => 'root',
   content => 'IdentityFile ~/.ssh/school\n PasswordAuthentication no\n User ubuntu\n Host 34.227.89.176\n',
+  mode   => '0644',
 }
