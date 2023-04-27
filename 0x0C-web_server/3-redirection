@@ -2,7 +2,7 @@
 # A Bash script that Installs, configures, and starts the server
 sudo apt-get update
 sudo apt-get install -y nginx
-sudo sed -i 's/listen 8080 default_server;/listen 80 default_server;/' /etc/nginx/sites-available/default
+sudo sed -i "s/listen 8080 default_server;/listen 80 default_server;/" /etc/nginx/sites-enabled/default
 sudo mkdir -p /var/www/html/
 sudo chmod -R 755 /var/www
 echo 'Hello World!' > /var/www/html/index.html
@@ -15,15 +15,14 @@ SERVER_CONFIG="server {
     location / {
         try_files \$uri \$uri/ =404;
     }
-    if ($request_filename ~ redirect_me){
-        rewrite ^ https://www.youtube.com/ permanent;
+    if (\$request_uri ~ redirect_me){
+        return 301 https://https://www.youtube.com;
     }
 }"
 bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
 
 if [ "$(pgrep -c nginx)" -le 0 ]; then
-    service nginx start
+    sudo service nginx start
 else
-    service nginx restart
+    sudo service nginx restart
 fi
-
