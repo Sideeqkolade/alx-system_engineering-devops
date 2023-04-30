@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+# install nginx web server that listens on port 80
+
+# Install Nginx
+apt-get update
+apt-get -y install nginx
+
+# Start the nginx service
+service nginx start
+
+# Set hostname variable
+hostname=$(hostname)
+
+# Configure Nginx to listen on port 80
+sed -i 's/listen 8080 default_server;/listen 80 default_server;/' /etc/nginx/sites-available/default
+
+# Configure Nginx to add custom HTTP header
+sed -i "s/include \/etc\/nginx\/sites-enabled\/\*;/include \/etc\/nginx\/sites-enabled\/\*;\n\tadd_header X-Served-By \"$HOSTNAME\";/" /etc/nginx/nginx.conf
+
+# Create the index.html file with the "Hello World!" message
+echo "Hello World!" | sudo tee /var/www/html/index.html > /dev/null
+
+# Restart Nginx
+service nginx restart
