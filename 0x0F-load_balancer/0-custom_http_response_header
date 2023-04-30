@@ -10,7 +10,7 @@ apt-get -y install nginx
 service nginx start
 
 # Set hostname variable
-hostname=$(hostname)
+# hostname=$(hostname)
 
 # Configure Nginx to listen on port 80
 sed -i 's/listen 8080 default_server;/listen 80 default_server;/' /etc/nginx/sites-available/default
