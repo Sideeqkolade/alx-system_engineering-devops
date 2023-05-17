@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-# install the ufw firewall and set up rules on web-01
-
+#Firewll configuration
 sudo apt-get -y update
 sudo apt-get -y install ufw
 sudo ufw default deny incoming
